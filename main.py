@@ -2,17 +2,19 @@ import settings
 import discord
 from discord.ext import commands
 
+logger = settings.logging.getLogger("bot")
+
 
 def run():
     intends = discord.Intents.default()
-    
+
     bot = commands.Bot(command_prefix="!", intents=intends)
 
     @bot.event
     async def on_ready():
-        print(f"{bot.user} has connected to Discord!")
+        logger.info(f"User: {bot.user} (ID: {bot.user.id})")
 
-    bot.run(settings.DISCORD_API_SECRET)
+    bot.run(settings.DISCORD_API_SECRET, root_logger=True)
 
 
 if __name__ == "__main__":
